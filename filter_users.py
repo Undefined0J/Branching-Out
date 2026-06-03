@@ -35,6 +35,17 @@ def filter_users_by_name(users: list, name: str) -> list:
     return [user for user in users if user.get("name", "").lower() == name.lower()]
 
 
+def filter_users_by_age(users: list, age: int) -> list:
+    """
+    Filter a list of users by their age.
+
+    :param users: List of user dictionaries.
+    :param age: The exact age to search for.
+    :return: A list of user dictionaries that match the given age.
+    """
+    return [user for user in users if user.get("age") == age]
+
+
 def display_users(users: list) -> None:
     """
     Print the details of each user in the provided list.
@@ -64,6 +75,17 @@ def main() -> None:
         name_to_search = input("Enter a name to filter users: ").strip()
         filtered_users = filter_users_by_name(users_data, name_to_search)
         display_users(filtered_users)
+
+    elif filter_option == "age":
+        age_input = input("Enter an age to filter users: ").strip()
+        try:
+            # Safely convert input to integer
+            age_to_search = int(age_input)
+            filtered_users = filter_users_by_age(users_data, age_to_search)
+            display_users(filtered_users)
+        except ValueError:
+            print("Error: Age must be a valid number.")
+
     else:
         print("Filtering by that option is not yet supported.")
 
