@@ -46,6 +46,17 @@ def filter_users_by_age(users: list, age: int) -> list:
     return [user for user in users if user.get("age") == age]
 
 
+def filter_users_by_email(users: list, email: str) -> list:
+    """
+    Filter a list of users by their email address.
+
+    :param users: List of user dictionaries.
+    :param email: The email address to search for (case-insensitive).
+    :return: A list of user dictionaries that match the given email.
+    """
+    return [user for user in users if user.get("email", "").lower() == email.lower()]
+
+
 def display_users(users: list) -> None:
     """
     Print the details of each user in the provided list.
@@ -69,7 +80,7 @@ def main() -> None:
     users_data = load_users(file_name)
 
     # Prompt for filter option
-    prompt_text = "What would you like to filter by? (Currently, 'name' and 'age' are supported): "
+    prompt_text = "What would you like to filter by? (Currently, 'name', 'age' an 'email' are supported): "
     filter_option = input(prompt_text).strip().lower()
 
     if filter_option == "name":
@@ -86,6 +97,11 @@ def main() -> None:
             display_users(filtered_users)
         except ValueError:
             print("Error: Age must be a valid number.")
+
+    elif filter_option == "email":
+        email_to_search = input("Enter an email to filter users: ").strip()
+        filtered_users = filter_users_by_email(users_data, email_to_search)
+        display_users(filtered_users)
 
     else:
         print("Filtering by that option is not yet supported.")
