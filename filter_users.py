@@ -69,7 +69,8 @@ def main() -> None:
     users_data = load_users(file_name)
 
     # Prompt for filter option
-    filter_option = input("What would you like to filter by? (Currently, only 'name' is supported): ").strip().lower()
+    prompt_text = "What would you like to filter by? (Currently, 'name' and 'age' are supported): "
+    filter_option = input(prompt_text).strip().lower()
 
     if filter_option == "name":
         name_to_search = input("Enter a name to filter users: ").strip()
